@@ -1,6 +1,7 @@
 # TS-API
 
 APIs in NodeJS should have a single source of truth for api specs between code and docs, as well as compile time type safety.  
+
 Schemas are often duplicated between json schemas for input validation, typescript types, jsdoc comment annotations or  swagger-specific wrappers in your app.  Routes and response status codes also suffer from similar issues where code can get out of sync with documentation.
 
 TS-API solves this by leveraging the typescript parser to generate:
@@ -94,14 +95,20 @@ See an [example controller](./examples/src/controllers/account.ts) for a working
 
 ### Run cg after typescript compiling your code
 
-The easiest way to do this is an npm script or npm install -g:
+The easiest way to do this is an npm script (or npm install -g):
 
     tsc && cg
     
 The `cg` CLI tool can take options and specific files:
 
     cg <options> <list of files>
-    
+   
+### Run your app
+
+You can verify output by using the hosted docs (your route will depend on where you mount the app):
+
+http://localhost:3002/api/docs
+ 
 ## License
 
 [Apache 2.0](LICENSE)    
