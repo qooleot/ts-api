@@ -24,7 +24,7 @@ export interface Account {
 }
 ```
 
-and converted to a json schema:
+is converted to a json schema:
 
 ```json
   "Account": {
@@ -93,6 +93,8 @@ See an [example controller](./examples/src/controllers/account.ts) for a working
 
 ### Import the router and use in your app
 
+
+
 ### Run cg after typescript compiling your code
 
 The easiest way to do this is an npm script (or npm install -g):
@@ -105,7 +107,7 @@ The `cg` CLI tool can take options and specific files:
    
 ### Run your app
 
-You can verify output by using the hosted docs (your route will depend on where you mount the app):
+You can verify output by using the hosted docs.  The route will depend on where you mount the app, such as:
 
 http://localhost:3002/api/docs
  
