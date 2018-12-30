@@ -1,6 +1,7 @@
 # TS-API
 
-APIs in NodeJS should have a single source of truth for api specs between code and docs, as well as compile time type safety.  Schemas are often duplicated between json schemas for input validation, typescript types, jsdoc comment annotations or  swagger-specific wrappers in your app.  Routes and response status codes also suffer from similar issues where code can get out of sync with documentation.
+APIs in NodeJS should have a single source of truth for api specs between code and docs, as well as compile time type safety.  
+Schemas are often duplicated between json schemas for input validation, typescript types, jsdoc comment annotations or  swagger-specific wrappers in your app.  Routes and response status codes also suffer from similar issues where code can get out of sync with documentation.
 
 TS-API solves this by leveraging the typescript parser to generate:
 
@@ -50,7 +51,7 @@ export class Account extends ControllerBase {
   @get('/')
   async listAccounts(): Promise<Acccount[]> {
   ...
-  return [{ ... }, ...]
+  return [{ ...account1 }, ...]
   }
 ```
 
@@ -66,39 +67,13 @@ You can mount this anywhere in your app, use middleware, and treat it like any o
 
 ### OpenAPI (Swagger) docs
 
-
-```javascript
-import { ControllerBase, get, controller } from 'ts-api';
-
-@controller('/acount')
-export class Download extends ControllerBase {
-
-  @get('/')
-  async listAccounts(accountId: string): Promise<IAcccount[]> {
-    return [{ id: 1, name: 'foo' }]
-  }
-
-  @get('/:accountId')
-  async getAccount(accountId: string): Promise<IAcccount> {
-    return { id: 1, name: 'foo' }
-  }
-  
-  @post('/')
-  async createAccount(accountId: string): Promise<IAcccount> {
-    return { id: 1, name: 'foo' }
-  }
-}  
-```
-
-## Install
-    npm install --save-dev ts-api
-
-This will install a program `cg` that can be invoked later to generate source files to enable
-the above features. 
+Full OpenAPI 3 output:
 
 ## Usage
 
-### Inclue ts-api package in a project
+### Install
+
+    npm install --save-dev ts-api
 
 First make this package a dependency.  This will provide the necessary decorators *@controller*,
 *@router* *@get* *@post*, etc.  The analyzer will search for those names and generate code that
@@ -106,8 +81,27 @@ uses them, but these decorators also do things themselves like invoke the runtim
 
 ### Create appropriately annotated classes and methods.
 
+The key steps are:
+
+1. Create a class that extend the base controller 
+2. Add a controller decorator to the class
+3. Decorate methods that represend API endpoints 
+4. Use typescript interfaces for type declarations in the method arguments/response
+
+See an [example controller](./examples/src/controllers/account.ts) for a working reference.
+
 ### Import the router and use in your app
 
-### Run cg
+### Run cg after typescript compiling your code
+
+The easiest way to do this is an npm script or npm install -g:
+
+    tsc && cg
+    
+The `cg` CLI tool can take options and specific files:
 
     cg <options> <list of files>
+    
+## License
+
+[Apache 2.0](LICENSE)    
