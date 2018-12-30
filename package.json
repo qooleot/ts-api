@@ -32,7 +32,7 @@
     "cg": "./bin/cg"
   },
   "author": "Jeff Waller",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^5.2.0"
