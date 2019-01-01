@@ -18,7 +18,7 @@ TS-API solves this by leveraging the typescript parser to generate:
 TypeScript types are extracted from the source code, such as this example:
 
 ```javascript
-export interface Account {
+export interface User {
     name: string;
     isActive?: boolean;
 }
@@ -27,7 +27,7 @@ export interface Account {
 is converted to a json schema:
 
 ```json
-  "Account": {
+  "User": {
     "type": "object",
     "properties": {
       "name": {
@@ -46,11 +46,11 @@ is converted to a json schema:
 ### Route Generation
 
 ```javascript
-@controller('/acount')
-export class Account extends ControllerBase {
+@controller('/user')
+export class User extends ControllerBase {
 
   @get('/')
-  async listAccounts(): Promise<Acccount[]> {
+  async listUsers(): Promise<User[]> {
   ...
   return [{ ...account1 }, ...]
   }
@@ -58,7 +58,7 @@ export class Account extends ControllerBase {
 
 The controller and Rest verbs (get, post, put, etc.) optionally take a route override, otherwise it uses the class or method name by default.
 
-A router tree is build from all controllers in the typescript path:
+A router tree is build by TS-API from all controllers in the typescript path:
 
 ```javascript
 AccountRouter.get('/', async(req,res,next) => { ... }
@@ -68,7 +68,11 @@ You can mount this anywhere in your app, use middleware, and treat it like any o
 
 ### OpenAPI (Swagger) docs
 
-Full OpenAPI 3 output:
+OpenAPI 3 output for a sample controller:
+
+![Swagger Screenshot](docs/images/ts-api-swagger.png "Swagger Screenshot")
+
+[ReDoc](https://github.com/Rebilly/ReDoc) is also supported as viewer.
 
 ## Usage
 
@@ -93,7 +97,15 @@ See an [example controller](examples/src/controllers/user.ts) for a working refe
 
 ### Import the router and use in your app
 
-
+```javascript
+@router('/api')
+export default class Router extends RouterBase {
+  constructor(app: any) {
+    super(app);
+    require('./__routes')(this);
+  }
+}
+```
 
 ### Run cg after typescript compiling your code
 
