@@ -89,7 +89,7 @@ The key steps are:
 3. Decorate methods that represend API endpoints 
 4. Use typescript interfaces for type declarations in the method arguments/response
 
-See an [example controller](./examples/src/controllers/account.ts) for a working reference.
+See an [example controller](examples/src/controllers/user.ts) for a working reference.
 
 ### Import the router and use in your app
 
